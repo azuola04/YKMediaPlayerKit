@@ -7,13 +7,14 @@
 //
 
 #import "YKUnKnownVideo.h"
+#import <WebKit/WebKit.h>
 
 #define kNavBarHeight (([[[UIDevice currentDevice] systemVersion] compare:@"7.0" options:NSNumericSearch] == NSOrderedAscending) ? 44.0f : 64.0f)
 
 //CGFloat const kNavBarHeight = 64.0f;
 
 @interface YKUnKnownVideo()
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UINavigationController *navController;
 @property (nonatomic, strong) UIViewController *viewController;
 @end
@@ -56,9 +57,8 @@
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     CGSize viewSize = rootViewController.view.frame.size;
     
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, viewSize.width, viewSize.height-kNavBarHeight)];
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, kNavBarHeight, viewSize.width, viewSize.height-kNavBarHeight)];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.webView.scalesPageToFit = YES;
     self.webView.scrollView.contentInset = UIEdgeInsetsMake(kNavBarHeight, 0, 0, 0);
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.contentURL]];
     
